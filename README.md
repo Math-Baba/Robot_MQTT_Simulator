@@ -70,8 +70,8 @@
 
 ```bash
 # Avec Git
-git clone <url-du-repo>
-cd "Course de robot"
+git clone https://github.com/Math-Baba/robot-mqtt-simulator.git
+cd robot-mqtt-simulator
 ```
 
 ### 2️⃣ Créer un environnement virtuel (recommandé)
