@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Course de Robots - Temps réel</title>
+</head>
+<body>
+  <div id="robots">
+    <div id="robot-1">
+        <h3>Robot 1</h3>
+        <p>Vitesse : <span id="robot-1-speed">--</span></p>
+        <p>Batterie : <span id="robot-1-battery">--</span></p>
+        <button onclick="sendCommand(1, 'speed_up')">Accélérer</button>
+        <button onclick="sendCommand(1, 'speed_down')">Décélérer</button>
+        <button onclick="sendCommand(1, 'stop')">Stop</button>
+    </div>
+
+    <div id="robot-2">
+        <h3>Robot 2</h3>
+        <p>Vitesse : <span id="robot-2-speed">--</span></p>
+        <p>Batterie : <span id="robot-2-battery">--</span></p>
+        <button onclick="sendCommand(2, 'speed_up')">Accélérer</button>
+        <button onclick="sendCommand(2, 'speed_down')">Décélérer</button>
+        <button onclick="sendCommand(2, 'stop')">Stop</button>
+    </div>
+    </div>
+
+
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
+    const socket = io();
+
+    function sendCommand(robotId, command) {
+        socket.emit("sendCommand", {
+            robot: robotId,
+            command: command
+        });
+    }
+
+    socket.on("robotData", msg => {
+        const topic = msg.topic;   // cars/1/status
+        const data  = msg.data;    // speed: 32 km/h
+
+        // Extraire l’ID robot
+        const robotId = topic.split("/")[1];
+
+        // Extraire clé / valeur
+        const [rawKey, rawValue] = data.split(":");
+        if (!rawKey || !rawValue) return;
+
+        const key = rawKey.trim();     // speed / battery
+        const value = rawValue.trim();
+
+        // ID cible (peut exister OU PAS)
+        const elementId = `robot-${robotId}-${key}`;
+        const element = document.getElementById(elementId);
+
+        // Mise à jour seulement si l’élément existe
+        if (element) {
+            element.innerText = value;
+        }
+    });
+    </script>
+</body>
+</html>
