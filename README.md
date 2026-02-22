@@ -74,14 +74,14 @@ git clone https://github.com/Math-Baba/robot-mqtt-simulator.git
 cd robot-mqtt-simulator
 ```
 
-### 2️⃣ Créer un environnement virtuel (recommandé)
+### 2️ Créer un environnement virtuel (recommandé)
 
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### 3️⃣ Installer les dépendances Python
+### 3️ Installer les dépendances Python
 
 ```bash
 pip install -r requirements.txt
@@ -226,5 +226,3 @@ socketio.run(app, host="0.0.0.0", port=8080)  # Port 8080 au lieu de 5000
     <button onclick="sendCommand(3, 'stop')">Stop</button>
 </div>
 ```
-
-## 👨‍💼 Auteur
